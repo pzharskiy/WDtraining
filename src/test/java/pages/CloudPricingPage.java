@@ -2,9 +2,9 @@ package pages;
 
 import org.openqa.selenium.WebDriver;
 
-public class PricingPage extends CloudPage {
+public class CloudPricingPage extends CloudStartPage {
 
-    public PricingPage(WebDriver driver) {
+    public CloudPricingPage(WebDriver driver) {
         super(driver);
     }
 

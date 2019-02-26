@@ -2,7 +2,7 @@ package steps;
 
 import driver.DriverSingleton;
 import org.openqa.selenium.WebDriver;
-import pages.CloudPage;
+import pages.CloudStartPage;
 import pages.PastebinPage;
 
 public class Steps {
@@ -18,7 +18,13 @@ public class Steps {
     }
 
     public void createNewPaste(String code, String expiration, String title) {
-
+        PastebinPage page = new PastebinPage(driver);
+        ///
+        page.open();
+        ///
+        page.pasteCode(code);
+        page.fillTitle(title);
+        page.fillExpiration(expiration);
     }
 
     public void createNewPaste(String code, String highlighting, String expiration, String title) {
@@ -43,10 +49,11 @@ public class Steps {
     }
 
     public void openGoogleCloud() {
-        CloudPage page = new CloudPage(driver);
+        CloudStartPage page = new CloudStartPage(driver);
         page.open();
     }
 
-    public void fillGoogleCloudForm(){}
+    public void fillGoogleCloudForm() {
+    }
 
 }

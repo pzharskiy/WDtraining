@@ -5,14 +5,14 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-public class ProductPage extends CloudPage{
+public class CloudProductPage extends CloudStartPage {
 
     //protected String URL = BASE_URL+"products/";
 
     @FindBy(xpath = "//a[@class='cloud-button cloud-button--secondary' and @href='https://cloud.google.com/pricing/']")
     WebElement seePricingButton;
 
-    public ProductPage(WebDriver driver) {
+    public CloudProductPage(WebDriver driver) {
         super(driver);
     }
 
@@ -21,9 +21,9 @@ public class ProductPage extends CloudPage{
         driver.get(BASE_URL+"products/");
     }
 
-    public PricingPage seePricing()
+    public CloudPricingPage seePricing()
     {
         seePricingButton.click();
-        return PageFactory.initElements(driver, PricingPage.class);
+        return PageFactory.initElements(driver, CloudPricingPage.class);
     }
 }

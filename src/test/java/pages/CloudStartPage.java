@@ -5,23 +5,26 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-public class StartPage extends CloudPage {
+public class CloudStartPage extends Page{
+
 
     @FindBy(xpath = "//a[@class='cloud-button cloud-button--primary' and @href='https://cloud.google.com/products/']")
     private WebElement exploreAllProductsButton;
 
-    public StartPage(WebDriver driver) {
-        super(driver);
-    }
+    protected  String BASE_URL = "https://cloud.google.com/";
 
-    public ProductPage exploreAllProducts()
-    {
-        exploreAllProductsButton.click();
-        return PageFactory.initElements(driver, ProductPage.class);
+    public CloudStartPage(WebDriver driver) {
+        super(driver);
     }
 
     public void open() {
         driver.get(BASE_URL);
+    }
+
+    public CloudProductPage exploreAllProducts()
+    {
+        exploreAllProductsButton.click();
+        return PageFactory.initElements(driver, CloudProductPage.class);
     }
 
 }
