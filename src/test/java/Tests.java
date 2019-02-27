@@ -1,14 +1,19 @@
 import org.testng.annotations.Test;
-import steps.Steps;
+import steps.CloudSteps;
 
 public class Tests {
 
-    Steps step = new Steps();
+    CloudSteps steps=new CloudSteps();
 
     @Test
     public void Test() {
-        step.openBrowser();
-        step.createNewPaste("coding yooooo", "10", "title yoaaa");
-        step.closeBrowser();
+
+        steps.openBrowser();
+        steps.openGoogleCloud();
+        steps.exploreAllProducts();
+        steps.seePricing();
+        steps.calculate();
+        steps.fillGoogleCloudForm();
+        steps.closeBrowser();
     }
 }

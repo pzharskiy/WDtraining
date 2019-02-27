@@ -3,14 +3,16 @@ package pages;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
 
-public abstract class Page {
+public abstract class CloudPage {
 
-    WebDriver driver;
+    protected WebDriver driver;
+    protected  String BASE_URL = "https://cloud.google.com/";
 
-    public Page(WebDriver driver) {
+    public CloudPage(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
     }
 
     public abstract void open();
+
 }
