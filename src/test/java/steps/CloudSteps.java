@@ -28,31 +28,30 @@ public class CloudSteps {
         CloudCalculatorPage page = new CloudCalculatorPage(driver);
         page.computeEngine();
         page.setInstance("5");
-        page.setOperationSystem();
+        //page.setOperationSystem();
+        String operationSystem = page.getOperationSystem();
         page.setInstanceType();
+        page.clickAddGPUsBox();
+        page.setNumberOfGPU();
 
     }
 
-    public void exploreAllProducts()
-    {
+    public void exploreAllProducts() {
         CloudStartPage page = new CloudStartPage(driver);
         page.exploreAllProducts();
     }
 
-    public void seePricing()
-    {
+    public void seePricing() {
         CloudProductPage page = new CloudProductPage(driver);
         page.seePricing();
     }
 
-    public void calculate()
-    {
+    public void calculate() {
         CloudPricingPage page = new CloudPricingPage(driver);
         page.calculate();
     }
 
-    public void cumputeEngine()
-    {
+    public void cumputeEngine() {
 
     }
 

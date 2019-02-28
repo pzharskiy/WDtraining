@@ -3,7 +3,7 @@ import steps.CloudSteps;
 
 public class Tests {
 
-    CloudSteps steps=new CloudSteps();
+    CloudSteps steps = new CloudSteps();
 
     @Test
     public void Test() {
