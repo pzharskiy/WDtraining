@@ -33,6 +33,11 @@ public class CloudSteps {
         page.setInstanceType();
         page.clickAddGPUsBox();
         page.setNumberOfGPU();
+        page.setGPUType();
+        page.setSSD();
+        page.setLocation();
+        page.setCommitUsage();
+        page.addToEstimate();
 
     }
 
@@ -49,10 +54,6 @@ public class CloudSteps {
     public void calculate() {
         CloudPricingPage page = new CloudPricingPage(driver);
         page.calculate();
-    }
-
-    public void cumputeEngine() {
-
     }
 
 

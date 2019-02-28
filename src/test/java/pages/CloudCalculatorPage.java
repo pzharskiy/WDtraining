@@ -1,11 +1,13 @@
 package pages;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class CloudCalculatorPage extends CloudPage {
@@ -65,11 +67,11 @@ public class CloudCalculatorPage extends CloudPage {
     }
 
     //TODO parametres
-    public void setOperationSystem() {
+    public void setOperationSystem(String operationSystem) {
         //operationSystemLabel.click();
 
         driver.switchTo().frame("idIframe");
-        driver.findElement(By.xpath("//*[text()='Free: Debian, CentOS, CoreOS, Ubuntu, or other User Provided OS']")).click();
+        driver.findElement(By.xpath("//*[text()='"+operationSystem+"']")).click();
         driver.switchTo().defaultContent();
 
 
@@ -93,7 +95,6 @@ public class CloudCalculatorPage extends CloudPage {
         driver.findElement(By.xpath("//*[@id='select_option_70']")).click();
         driver.switchTo().defaultContent();
 
-
         /*findElementInFrame(iFrame, By.id("select_93")).click();
         findElementInFrame(iFrame, By.id("select_option_70")).click();*/
     }
@@ -107,10 +108,56 @@ public class CloudCalculatorPage extends CloudPage {
 
     public void setNumberOfGPU()
     {
+
+        //Select options = new Select(driver.findElement(By.xpath("//*[@id='select_value_label_319']")));
+        //options.selectByVisibleText(numberofGPU);
+
         driver.switchTo().frame("idIframe");
-        //new WebDriverWait(driver, 3).until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id='select_value_label_319']"))).click();
-        //new WebDriverWait(driver, 3).until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id='select_option_356']"))).click();
+        driver.findElement(By.xpath("//*[@id='select_value_label_319']")).click();
+        driver.findElement(By.xpath("//*[@id='select_option_326']")).click();
+        driver.switchTo().defaultContent();
+
+    }
+
+    public void setGPUType()
+    {
+        driver.switchTo().frame("idIframe");
+        driver.findElement(By.xpath("//*[@id='select_value_label_320']")).click();
+        driver.findElement(By.xpath("//*[@id='select_option_333']")).click();
         driver.switchTo().defaultContent();
     }
 
+    public void setSSD()
+    {
+
+        driver.switchTo().frame("idIframe");
+        driver.findElement(By.xpath("//*[@id='select_95']")).click();
+        driver.findElement(By.xpath("//*[@id='select_option_182']")).click();
+        driver.switchTo().defaultContent();
+    }
+
+    public void setLocation()
+    {
+        driver.switchTo().frame("idIframe");
+        driver.findElement(By.xpath("//*[@id='select_97']")).click();
+        driver.findElement(By.xpath("//*[@id='select_option_196']")).click();
+        driver.switchTo().defaultContent();
+    }
+
+    public void setCommitUsage()
+    {
+        driver.switchTo().frame("idIframe");
+        driver.findElement(By.xpath("//*[@id='select_102']")).click();
+        driver.findElement(By.xpath("//*[@id='select_option_100']")).click();
+        driver.switchTo().defaultContent();
+    }
+
+    public void addToEstimate()
+    {
+
+       driver.switchTo().frame("idIframe");
+        driver.findElement(By.xpath("//*[@id=\"mainForm\"]/div[1]/div/md-card/md-card-content/div/div[1]/form/div[11]/button")).click();
+       driver.switchTo().defaultContent();
+
+    }
 }
