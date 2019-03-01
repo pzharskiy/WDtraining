@@ -6,11 +6,12 @@ import pages.CloudCalculatorPage;
 import pages.CloudPricingPage;
 import pages.CloudProductPage;
 import pages.CloudStartPage;
+import utils.Form;
 
 public class CloudSteps {
 
     private WebDriver driver;
-
+    private Form form;
     public void openBrowser() {
         driver = DriverSingleton.getDriver();
     }
@@ -38,6 +39,7 @@ public class CloudSteps {
         page.setLocation();
         page.setCommitUsage();
         page.addToEstimate();
+        form = page.getBlankedForm();
 
     }
 
@@ -56,5 +58,9 @@ public class CloudSteps {
         page.calculate();
     }
 
+    public Form getBlankedForm()
+    {
+        return form;
+    }
 
 }
