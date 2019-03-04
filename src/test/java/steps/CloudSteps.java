@@ -1,6 +1,9 @@
 package steps;
 
 import driver.DriverSingleton;
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import pages.CloudCalculatorPage;
 import pages.CloudPricingPage;
@@ -8,10 +11,15 @@ import pages.CloudProductPage;
 import pages.CloudStartPage;
 import utils.Form;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class CloudSteps {
 
     private WebDriver driver;
-    private Form form;
+    private Form estimatedFrom;
+    private Form filledForm;
+
     public void openBrowser() {
         driver = DriverSingleton.getDriver();
     }
@@ -25,22 +33,22 @@ public class CloudSteps {
         page.open();
     }
 
-    public void fillGoogleCloudForm() {
+    public void fillGoogleCloudForm(Form sourceForm) {
         CloudCalculatorPage page = new CloudCalculatorPage(driver);
         page.computeEngine();
-        page.setInstance("5");
-        //page.setOperationSystem();
-        String operationSystem = page.getOperationSystem();
-        page.setInstanceType();
+        page.setInstance(sourceForm.getNumberOfInstances());
+        page.setOperationSystem(sourceForm.getOperationSystem());
+        page.setVmClass(sourceForm.getVmClass());
+        page.setInstanceType(sourceForm.getInstanceType());
         page.clickAddGPUsBox();
-        page.setNumberOfGPU();
-        page.setGPUType();
-        page.setSSD();
-        page.setLocation();
-        page.setCommitUsage();
+        page.setNumberOfGPU(sourceForm.getNumberOfGPUs());
+        page.setGPUType(sourceForm.getGpuType());
+        page.setSSD(sourceForm.getLocalSSD());
+        page.setLocation(sourceForm.getDatacenterLocation());
+        page.setCommitUsage(sourceForm.getCommittedUsage());
         page.addToEstimate();
-        form = page.getBlankedForm();
-
+        filledForm = page.getFilledForm();
+        estimatedFrom = page.getEstimatedValues();
     }
 
     public void exploreAllProducts() {
@@ -58,9 +66,18 @@ public class CloudSteps {
         page.calculate();
     }
 
-    public Form getBlankedForm()
-    {
-        return form;
+    public Form getFilledForm() {
+        return filledForm;
     }
 
+    public Form getEstimatedFrom() {
+        return estimatedFrom;
+    }
+
+    public void openLinkInNewTab(String url) {
+        ((JavascriptExecutor)driver).executeScript("window.open()");
+        List<String> tabs = new ArrayList<String>(driver.getWindowHandles());
+        driver.switchTo().window(tabs.get(1));
+        driver.get(url);
+    }
 }
