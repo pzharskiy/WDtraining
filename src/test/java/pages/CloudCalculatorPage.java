@@ -341,6 +341,15 @@ public class CloudCalculatorPage extends CloudPage {
         return driver.findElement(By.xpath("//*[@id=\"compute\"]/md-list/md-list-item[6]")).getText();
     }
 
+    private void selectElementFromList(List<WebElement> listOfSelectElements, String elementToBeSelected) {
+
+        for (WebElement webElement : listOfSelectElements) {
+            if (webElement.getText().equals(elementToBeSelected)) {
+                webElement.click();
+            }
+        }
+    }
+
 /////////
 
     /// Не работает, не может найти фрейм, если вход в него выполнен в виде отдельной функции

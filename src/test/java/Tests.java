@@ -52,7 +52,8 @@ public class Tests {
         steps.seePricing();
         steps.calculate();
         steps.fillGoogleCloudForm(sourceForm);
-
+        filledForm = steps.getFilledForm();
+        System.out.println(filledForm.getNumberOfInstances()+"ssss");
         steps.openLinkInNewTab("https://10minutemail.com");
     }
 
