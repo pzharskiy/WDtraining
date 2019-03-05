@@ -53,7 +53,7 @@ public class Tests {
         steps.calculate();
         steps.fillGoogleCloudForm(sourceForm);
         filledForm = steps.getFilledForm();
-        System.out.println(filledForm.getNumberOfInstances()+"ssss");
+        System.out.println(filledForm.getNumberOfInstances()+"FilledForm doesn't return any value, boiiii");
         steps.openLinkInNewTab("https://10minutemail.com");
     }
 

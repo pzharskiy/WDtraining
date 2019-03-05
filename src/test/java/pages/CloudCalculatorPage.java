@@ -16,11 +16,14 @@ public class CloudCalculatorPage extends CloudPage {
     private Form form = new Form();
     @FindBy(id = "idIframe")
     private WebElement iFrame;
-    @FindBy(xpath = "//md-card-content[@id='mainForm']//div[@class='tab-holder compute']")
+    //@FindBy(xpath = "//md-card-content[@id='mainForm']//div[@class='tab-holder compute']")
+    @FindBy(xpath = "//div[@title='Compute Engine']")
     private WebElement computeEngineButton;
-    @FindBy(id = "input_46")
+    //@FindBy(id = "input_46")
+    @FindBy(name = "quantity")
     private WebElement instancesLabel;
-    @FindBy(id = "input_47")
+    //@FindBy(id = "input_47")
+    @FindBy(name = "label")
     private WebElement whatAreTheseInstancesForLabel;
     //@FindBy(id = "input_58")
     @FindBy(id = "select_value_label_40")
@@ -39,12 +42,30 @@ public class CloudCalculatorPage extends CloudPage {
     private WebElement GPUsTypeLabel;
     @FindBy(xpath = "//*[@id=\"select_value_label_43\"]")
     private WebElement localSSDLabel;
-    @FindBy(xpath = "//*[@id=\"select_97\"]")
+    //@FindBy(xpath = "//*[@id=\"select_97\"]")
+    @FindBy(id = "select_value_label_44")
     private WebElement dataCenterLabel;
-    @FindBy(xpath = "//*[@id=\"select_102\"]")
+    //@FindBy(xpath = "//*[@id=\"select_102\"]")
+    @FindBy(id = "select_value_label_45")
     private WebElement commitedUsageLabel;
     @FindBy(xpath = "//a[]")
     private WebElement addToEstimateButton;
+    @FindBy(id = "select_container_59")
+    private WebElement selectOSAndSoftwareContainer;
+    @FindBy(id = "select_container_63")
+    private WebElement selectVMClassContainer;
+    @FindBy(id = "select_container_94")
+    private WebElement selectInstanceTypeContainer;
+    @FindBy(id = "select_container_330")
+    private WebElement selectNumberOfGPUsContainer;
+    @FindBy(id = "select_container_332")
+    private WebElement selectGPUTypeContainer;
+    @FindBy(id = "select_container_96")
+    private WebElement selectLocalSSDContainer;
+    @FindBy(id = "select_container_98")
+    private WebElement selectDataCenterLocationContainer;
+    @FindBy(id = "select_container_103")
+    private WebElement selectCommitedUsageContainer;
 
     public CloudCalculatorPage(WebDriver driver) {
         super(driver);
@@ -56,10 +77,10 @@ public class CloudCalculatorPage extends CloudPage {
     }
 
     public void computeEngine() {
-        driver.switchTo().frame("idIframe");
+        //driver.switchTo().frame("idIframe");
         wait.until(ExpectedConditions.elementToBeClickable(computeEngineButton)).click();
         //computeEngineButton.click();
-        driver.switchTo().defaultContent();
+        //driver.switchTo().defaultContent();
     }
 
     public void setInstance(String instance) {
@@ -95,13 +116,9 @@ public class CloudCalculatorPage extends CloudPage {
         driver.switchTo().frame("idIframe");
         instanceTypeLabel.click();
         wait.until(ExpectedConditions.visibilityOf(instanceTypeLabel));
-        /*String selectElementXPath = "//*[@id='select_container_94']/md-select-menu/md-content/md-optgroup[3]";
+        String selectElementXPath = "//*[@id='select_container_94']/md-select-menu/md-content/md-optgroup[3]";
         List<WebElement> instanceTypeList = driver.findElements(By.xpath(selectElementXPath));
-            for (WebElement instanceTypeItem : instanceTypeList) {
-                if (instanceTypeItem.getText().equals(instanceType)) {
-                    instanceTypeItem.click();
-                }
-            }*/
+        //selectElementFromList(instanceTypeList, instanceType);
         driver.findElement(By.xpath("//*[@id='select_option_70']")).click();
         driver.switchTo().defaultContent();
 
@@ -353,11 +370,11 @@ public class CloudCalculatorPage extends CloudPage {
 /////////
 
     /// Не работает, не может найти фрейм, если вход в него выполнен в виде отдельной функции
-    private void switchToFrame(String idFrame) {
+    public void switchToFrame(String idFrame) {
         driver.switchTo().frame(idFrame);
     }
 
-    private void leaveFrame() {
+    public void leaveFrame() {
         driver.switchTo().defaultContent();
     }
 }

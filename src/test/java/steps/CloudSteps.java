@@ -35,7 +35,9 @@ public class CloudSteps {
 
     public void fillGoogleCloudForm(Form sourceForm) {
         CloudCalculatorPage page = new CloudCalculatorPage(driver);
+        page.switchToFrame("idIframe");
         page.computeEngine();
+        page.leaveFrame();
         page.setInstance(sourceForm.getNumberOfInstances());
         page.setOperationSystem(sourceForm.getOperationSystem());
         page.setVmClass(sourceForm.getVmClass());
