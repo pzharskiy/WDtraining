@@ -1,7 +1,7 @@
 package utils;
 
 public class Form {
-    String numberOfInstances;
+    String numberOfInstances="";
     String operationSystem;
     String vmClass;
     String instanceType;

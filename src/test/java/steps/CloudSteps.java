@@ -5,10 +5,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
-import pages.CloudCalculatorPage;
-import pages.CloudPricingPage;
-import pages.CloudProductPage;
-import pages.CloudStartPage;
+import pages.*;
 import utils.Form;
 
 import java.util.ArrayList;
@@ -37,7 +34,6 @@ public class CloudSteps {
         CloudCalculatorPage page = new CloudCalculatorPage(driver);
         page.switchToFrame("idIframe");
         page.computeEngine();
-        page.leaveFrame();
         page.setInstance(sourceForm.getNumberOfInstances());
         page.setOperationSystem(sourceForm.getOperationSystem());
         page.setVmClass(sourceForm.getVmClass());
@@ -49,6 +45,7 @@ public class CloudSteps {
         page.setLocation(sourceForm.getDatacenterLocation());
         page.setCommitUsage(sourceForm.getCommittedUsage());
         page.addToEstimate();
+        page.leaveFrame();
         filledForm = page.getFilledForm();
         estimatedFrom = page.getEstimatedValues();
     }
@@ -82,4 +79,24 @@ public class CloudSteps {
         driver.switchTo().window(tabs.get(1));
         driver.get(url);
     }
+
+    public String getMail()
+    {
+        MailPage page = new MailPage(driver);
+        return page.getMail();
+    }
+
+    public void emailEstimate(String email)
+    {
+        CloudCalculatorPage page = new CloudCalculatorPage(driver);
+        page.emailEstimate();
+        page.fillEmailEstimateForm(email);
+        page.sendEmail();
+    }
+
+    public void openTab(String title)
+    {
+    }
+
+
 }

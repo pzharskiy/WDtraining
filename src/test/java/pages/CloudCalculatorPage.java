@@ -5,7 +5,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import utils.Form;
 
 import java.util.List;
@@ -48,8 +47,6 @@ public class CloudCalculatorPage extends CloudPage {
     //@FindBy(xpath = "//*[@id=\"select_102\"]")
     @FindBy(id = "select_value_label_45")
     private WebElement commitedUsageLabel;
-    @FindBy(xpath = "//a[]")
-    private WebElement addToEstimateButton;
     @FindBy(id = "select_container_59")
     private WebElement selectOSAndSoftwareContainer;
     @FindBy(id = "select_container_63")
@@ -77,35 +74,23 @@ public class CloudCalculatorPage extends CloudPage {
     }
 
     public void computeEngine() {
-        //driver.switchTo().frame("idIframe");
         wait.until(ExpectedConditions.elementToBeClickable(computeEngineButton)).click();
-        //computeEngineButton.click();
-        //driver.switchTo().defaultContent();
     }
 
     public void setInstance(String instance) {
-        driver.switchTo().frame("idIframe");
         wait.until(ExpectedConditions.elementToBeClickable(instancesLabel)).sendKeys(instance);
-        //instancesLabel.sendKeys(instance);
-        driver.switchTo().defaultContent();
-        }
+    }
 
     private String getInstance() {
         return driver.findElement(By.xpath("//*[@id='input_46']")).getText();
     }
 
     public void setOperationSystem(String operationSystemToBeSelected) {
-        driver.switchTo().frame("idIframe");
         operationSystemLabel.click();
-        wait.until(ExpectedConditions.visibilityOf(operationSystemLabel));
-        String selectElementXPath = "//*[@id='select_container_59']/md-select-menu/md-content/md-option";
-        List<WebElement> operationSystemList = driver.findElements(By.xpath(selectElementXPath));
-            for (WebElement operationSystem : operationSystemList) {
-                if (operationSystem.getText().equals(operationSystemToBeSelected)) {
-                    operationSystem.click();
-                }
-            }
-            driver.switchTo().defaultContent();
+        //wait.until(ExpectedConditions.visibilityOf(operationSystemLabel));
+        wait.until(ExpectedConditions.visibilityOf(selectOSAndSoftwareContainer));
+        String XPath = "//div[@id='select_container_59']/md-select-menu/md-content/md-option/div[@class='md-text']";
+        selectOption(XPath, operationSystemToBeSelected);
     }
 
     private String getOperationSystem() {
@@ -113,15 +98,11 @@ public class CloudCalculatorPage extends CloudPage {
     }
 
     public void setInstanceType(String instanceType) {
-        driver.switchTo().frame("idIframe");
         instanceTypeLabel.click();
-        wait.until(ExpectedConditions.visibilityOf(instanceTypeLabel));
-        String selectElementXPath = "//*[@id='select_container_94']/md-select-menu/md-content/md-optgroup[3]";
-        List<WebElement> instanceTypeList = driver.findElements(By.xpath(selectElementXPath));
-        //selectElementFromList(instanceTypeList, instanceType);
-        driver.findElement(By.xpath("//*[@id='select_option_70']")).click();
-        driver.switchTo().defaultContent();
-
+        String XPath = "//div[@id='select_container_94']/md-select-menu/md-content/md-optgroup/md-option/div[@class='md-text']";
+        wait.until(ExpectedConditions.visibilityOf(selectInstanceTypeContainer));
+        selectOption(XPath, instanceType);
+        //driver.findElement(By.xpath("//*[@id='select_option_70']")).click();
     }
 
     private String getInstanceType() {
@@ -129,26 +110,16 @@ public class CloudCalculatorPage extends CloudPage {
     }
 
     public void clickAddGPUsBox() {
-        driver.switchTo().frame("idIframe");
         wait.until(ExpectedConditions.elementToBeClickable(addGPUsBox)).click();
-            //addGPUsBox.click();
-            //new WebDriverWait(driver, 3).until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@role='checkbox'][@aria-label='Add GPUs']"))).click();
-            driver.switchTo().defaultContent();
+        //addGPUsBox.click();
+        //new WebDriverWait(driver, 3).until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@role='checkbox'][@aria-label='Add GPUs']"))).click();
     }
 
     public void setVmClass(String vmClass) {
-        driver.switchTo().frame("idIframe");
         vmClassLabel.click();
-            wait.until(ExpectedConditions.visibilityOf(vmClassLabel));
-            String selectElementXPath = "//*[@id='select_container_63']/md-select-menu/md-content/md-option";
-            List<WebElement> operationSystemList = driver.findElements(By.xpath(selectElementXPath));
-            wait.until(ExpectedConditions.visibilityOfAllElements(operationSystemList));
-            for (WebElement operationSystem : operationSystemList) {
-                if (operationSystem.getText().equals(vmClass)) {
-                    operationSystem.click();
-                }
-            }
-            driver.switchTo().defaultContent();
+        String XPath = "//div[@id='select_container_63']/md-select-menu/md-content/md-option/div[@class='md-text']";
+        wait.until(ExpectedConditions.visibilityOf(selectVMClassContainer));
+        selectOption(XPath, vmClass);
 
     }
 
@@ -158,25 +129,10 @@ public class CloudCalculatorPage extends CloudPage {
 
     public void setNumberOfGPU(String numberOfGPU) {
 
-        /*driver.switchTo().frame("idIframe");
-            wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id='select_value_label_327']"))).click();
-            wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id='select_value_label_327']")));
-
-            String selectElementXPath = "//*[@id='select_container_347']/md-select-menu/md-content/md-option";
-            List<WebElement> gpuNumberList = driver.findElements(By.xpath(selectElementXPath));
-            for (WebElement gpuNumber : gpuNumberList) {
-                if (gpuNumber.getText().equals(numberOfGPU)) {
-                    gpuNumber.click();
-                }
-            }
-
-            driver.switchTo().defaultContent();*/
-
-        driver.switchTo().frame("idIframe");
-        driver.findElement(By.xpath("//*[@id='select_value_label_327']")).click();
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id='select_option_334']"))).click();
-        //driver.findElement(By.xpath("//*[@id='select_option_334']")).click();
-        driver.switchTo().defaultContent();
+        String XPath = "//div[@id='select_container_330']/md-select-menu/md-content/md-option/div[@class='md-text ng-binding']";
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id='select_value_label_327']"))).click();
+        wait.until(ExpectedConditions.visibilityOf(selectNumberOfGPUsContainer));
+        selectOption(XPath, numberOfGPU);
 
     }
 
@@ -186,30 +142,10 @@ public class CloudCalculatorPage extends CloudPage {
     }
 
     public void setGPUType(String gpuType) {
-        /*driver.switchTo().frame("idIframe");
-
+        String XPath = "//div[@id='select_container_332']/md-select-menu/md-content/md-option/div[@class='md-text ng-binding']";
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id='select_value_label_328']"))).click();
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id='select_value_label_328']")));
-        String selectElementXPath = "//*[@id='select_container_349']/md-select-menu/md-content/md-option";
-        //wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(selectElementXPath)));
-        List<WebElement> gpuTypeList = driver.findElements(By.xpath(selectElementXPath));
-
-        for (WebElement gpuTypeItem : gpuTypeList) {
-            if (gpuTypeItem.getText().equals(gpuType)) {
-                gpuTypeItem.click();
-            }
-        }
-
-        driver.switchTo().defaultContent();
-
-*/
-        driver.switchTo().frame("idIframe");
-        driver.findElement(By.xpath("//*[@id='select_value_label_328']")).click();
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"select_option_341\"]"))).click();
-        //driver.findElement(By.xpath("//*[@id='select_option_358']")).click();
-        driver.switchTo().defaultContent();
-
-
+        wait.until(ExpectedConditions.visibilityOf(selectGPUTypeContainer));
+        selectOption(XPath, gpuType);
     }
 
     private String getGPUType() {
@@ -217,22 +153,10 @@ public class CloudCalculatorPage extends CloudPage {
     }
 
     public void setSSD(String localSSD) {
-        driver.switchTo().frame("idIframe");
+        String XPath = "//div[@id='select_container_96']/md-select-menu/md-content/md-option/div[@class='md-text ng-binding']";
         localSSDLabel.click();
-        driver.findElement(By.xpath("//*[@id='select_option_182']")).click();
-        driver.switchTo().defaultContent();
-
-        /*driver.switchTo().frame("idIframe");
-        localSSDLabel.click();
-        wait.until(ExpectedConditions.visibilityOf(localSSDLabel));
-        String selectElementXPath = "//*[@id='select_container_96']/md-select-menu/md-content/md-option";
-        List<WebElement> localSSDList = driver.findElements(By.xpath(selectElementXPath));
-        for (WebElement localSsdItem : localSSDList) {
-            if (localSsdItem.getText().equals(localSSD)) {
-                localSsdItem.click();
-            }
-        }
-        driver.switchTo().defaultContent();*/
+        wait.until(ExpectedConditions.visibilityOf(selectLocalSSDContainer));
+        selectOption(XPath, localSSD);
     }
 
     private String getSSD() {
@@ -240,23 +164,10 @@ public class CloudCalculatorPage extends CloudPage {
     }
 
     public void setLocation(String datacenterLocation) {
-        driver.switchTo().frame("idIframe");
+        String XPath = "//div[@id='select_container_98']/md-select-menu/md-content/md-option/div[@class='md-text ng-binding']";
         dataCenterLabel.click();
-        driver.findElement(By.xpath("//*[@id='select_option_196']")).click();
-        driver.switchTo().defaultContent();
-
-
-        /*driver.switchTo().frame("idIframe");
-        dataCenterLabel.click();
-        wait.until(ExpectedConditions.visibilityOf(dataCenterLabel));
-        String selectElementXPath = "//*[@id='select_container_98']/md-select-menu/md-content/md-option";
-        List<WebElement> datacenterLocationList = driver.findElements(By.xpath(selectElementXPath));
-        for (WebElement datacenterLocationItem : datacenterLocationList) {
-            if (datacenterLocationItem.getText().equals(datacenterLocation)) {
-                datacenterLocationItem.click();
-            }
-        }
-        driver.switchTo().defaultContent();*/
+        wait.until(ExpectedConditions.visibilityOf(selectDataCenterLocationContainer));
+        selectOption(XPath, datacenterLocation);
     }
 
     private String getLocation() {
@@ -264,23 +175,10 @@ public class CloudCalculatorPage extends CloudPage {
     }
 
     public void setCommitUsage(String commitUsage) {
-        driver.switchTo().frame("idIframe");
-        //driver.findElement(By.xpath("//*[@id='select_102']")).click();
-        commitedUsageLabel.click();
-        driver.findElement(By.xpath("//*[@id='select_option_100']")).click();
-        driver.switchTo().defaultContent();
-
-        /*driver.switchTo().frame("idIframe");
-        commitedUsageLabel.click();
-        wait.until(ExpectedConditions.visibilityOf(commitedUsageLabel));
-        String selectElementXPath = "//*[@id='select_container_103']/md-select-menu/md-content/md-option";
-        List<WebElement> commitUsageList = driver.findElements(By.xpath(selectElementXPath));
-        for (WebElement commitUsageItem : commitUsageList) {
-            if (commitUsageItem.getText().equals(commitUsage)) {
-                commitUsageItem.click();
-            }
-        }
-        driver.switchTo().defaultContent();*/
+        String XPath = "//div[@id='select_container_103']/md-select-menu/md-content/md-option/div[@class='md-text']";
+        wait.until(ExpectedConditions.elementToBeClickable(commitedUsageLabel)).click();
+        wait.until(ExpectedConditions.visibilityOf(selectCommitedUsageContainer));
+        selectOption(XPath, commitUsage);
     }
 
     private String getCommitUsage() {
@@ -289,15 +187,23 @@ public class CloudCalculatorPage extends CloudPage {
 
     public void addToEstimate() {
         fillForm();
-        driver.switchTo().frame("idIframe");
-        //*[@type='button'][@aria-label= driver.findElement(By.xpath("//*[@id=\"mainForm\"]/div[1]/div/md-card/md-card-content/div/div[1]/form/div[11]/button")).click();
         driver.findElement(By.xpath("//*[@type='button'][@aria-label='Add to Estimate']")).click();
-        driver.switchTo().defaultContent();
+    }
 
+    public void emailEstimate() {
+        wait.until(ExpectedConditions.elementToBeClickable(By.id("email_quote"))).click();
+    }
+
+    public void fillEmailEstimateForm(String email) {
+        wait.until(ExpectedConditions.elementToBeClickable(By.id("input_383"))).sendKeys(email);
+    }
+
+    public void sendEmail()
+    {
+        wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[contains(text(),'Send Email')]"))).click();
     }
 
     private void fillForm() {
-        driver.switchTo().frame("idIframe");
         form.setCommittedUsage(getCommitUsage());
         form.setDatacenterLocation(getLocation());
         form.setGpuType(getGPUType());
@@ -307,15 +213,13 @@ public class CloudCalculatorPage extends CloudPage {
         form.setNumberOfInstances(getInstance());
         form.setOperationSystem(getOperationSystem());
         form.setVmClass(getVmClass());
-        driver.switchTo().defaultContent();
 
     }
 
 
 //////////
 
-    public Form getFilledForm()
-    {
+    public Form getFilledForm() {
         return form;
     }
 
@@ -332,9 +236,7 @@ public class CloudCalculatorPage extends CloudPage {
     }
 
     public String getCostPerMonth() {
-        driver.switchTo().frame("idIframe");
         String costPerMonth = driver.findElement(By.xpath("//*[@id=\"compute\"]/md-list/md-list-item[7]")).getText();
-        driver.switchTo().defaultContent();
         return costPerMonth;
     }
 
@@ -358,10 +260,13 @@ public class CloudCalculatorPage extends CloudPage {
         return driver.findElement(By.xpath("//*[@id=\"compute\"]/md-list/md-list-item[6]")).getText();
     }
 
-    private void selectElementFromList(List<WebElement> listOfSelectElements, String elementToBeSelected) {
+    private void selectOption(String XPath, String optionToBeSelected) {
 
-        for (WebElement webElement : listOfSelectElements) {
-            if (webElement.getText().equals(elementToBeSelected)) {
+        int i = 0;
+        List<WebElement> listOfSelectOptions = driver.findElements(By.xpath(XPath));
+        for (WebElement webElement : listOfSelectOptions) {
+            System.out.println((i++) + " " + webElement.getText());
+            if (webElement.getText().equals(optionToBeSelected)) {
                 webElement.click();
             }
         }

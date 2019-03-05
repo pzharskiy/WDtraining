@@ -16,12 +16,15 @@ public class Tests {
     private final String NUMBER_OF_INSTANCE = "4";
     private final String OPERATION_SYSTEM = "Free: Debian, CentOS, CoreOS, Ubuntu, or other User Provided OS";
     private final String VM_CLASS = "Regular";
-    private final String INSTANCE_TYPE = "n1-standard-8 (vCPUs: 8, RAM: 30 GB)";
+    private final String INSTANCE_TYPE = "n1-standard-8    (vCPUs: 8, RAM: 30 GB)";
     private final String NUMBER_OF_GPUS = "1";
     private final String GPU_TYPE = "NVIDIA Tesla V100";
-    private final String LOCAL_SSD = "2x375 Gb";
+    private final String LOCAL_SSD = "2x375 GB";
     private final String DATACENTER_LOCATION = "Frankfurt (europe-west3)";
     private final String COMMITED_USAGE = "1 Year";
+    private String mail;
+    private final String TITLE_GOOGLE_CLOUD = "Google Cloud Platform Pricing Calculator  |  Google Cloud Platform  |  Google Cloud";
+    private final String TITLE_MAIL = "";
 
 
     @BeforeClass
@@ -55,6 +58,8 @@ public class Tests {
         filledForm = steps.getFilledForm();
         System.out.println(filledForm.getNumberOfInstances()+"FilledForm doesn't return any value, boiiii");
         steps.openLinkInNewTab("https://10minutemail.com");
+        mail = steps.getMail();
+
     }
 
 
@@ -79,3 +84,5 @@ public class Tests {
         assertEquals(filledForm.getLocalSSD(),sourceForm.getLocalSSD());
         assertEquals(filledForm.getDatacenterLocation(),sourceForm.getDatacenterLocation());
         assertEquals(filledForm.getCommittedUsage(),sourceForm.getCommittedUsage());*/
+
+
