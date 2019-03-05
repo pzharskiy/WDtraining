@@ -86,9 +86,11 @@ public class CloudSteps {
 
     public void emailEstimate(String email) {
         CloudCalculatorPage page = new CloudCalculatorPage(driver);
+        page.switchToFrame("idIframe");
         page.emailEstimate();
         page.fillEmailEstimateForm(email);
         page.sendEmail();
+        page.leaveFrame();
     }
 
     public void openTab(String title) {
@@ -101,5 +103,15 @@ public class CloudSteps {
             }
         }
     }
+
+    public void openGTab() {
+        ArrayList<String> tabs = new ArrayList<String>(driver.getWindowHandles());
+        driver.switchTo().window(tabs.get(0));
+    }
+    public void openMTab() {
+        ArrayList<String> tabs = new ArrayList<String>(driver.getWindowHandles());
+        driver.switchTo().window(tabs.get(1));
+    }
+
 
 }

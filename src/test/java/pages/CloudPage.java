@@ -17,7 +17,7 @@ public abstract class CloudPage {
 
     public CloudPage(WebDriver driver) {
         this.driver = driver;
-        wait = new WebDriverWait(driver, 5);
+        wait = new WebDriverWait(driver, 7);
         PageFactory.initElements(driver, this);
     }
 

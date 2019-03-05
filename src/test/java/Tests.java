@@ -1,11 +1,9 @@
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.BeforeTest;
-import org.testng.annotations.Test;
+import org.testng.annotations.*;
 import steps.CloudSteps;
 import utils.Form;
 
 import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertTrue;
 
 public class Tests {
 
@@ -32,6 +30,7 @@ public class Tests {
     public void initBrowser()
     {
         steps.openBrowser();
+
     }
 
     @BeforeTest
@@ -49,23 +48,65 @@ public class Tests {
         sourceForm.setCommittedUsage(COMMITED_USAGE);
 
     }
-    @Test
-    public void appropriateValueTest() {
+
+    //Изменить: Лучше тесты собрать в группы, чтобы не проходить эти действия перед каждым тестом.
+    @BeforeMethod
+    public void preparation()
+    {
         steps.openGoogleCloud();
         steps.exploreAllProducts();
         steps.seePricing();
         steps.calculate();
         steps.fillGoogleCloudForm(sourceForm);
-        filledForm = steps.getFilledForm();
-        filledForm.showForm();
-        steps.openLinkInNewTab(MAIL_URL);
-        mail = steps.getMail();
-        steps.openTab(TITLE_GOOGLE_CLOUD);
-        //steps.emailEstimate(mail);
-        steps.openTab(TITLE_MAIL);
+
     }
 
+    @Test
+    public void appropriateValueTest() {
+        filledForm = steps.getFilledForm();
 
+        assertEquals(filledForm.getNumberOfInstances(),sourceForm.getNumberOfInstances());
+        assertEquals(filledForm.getOperationSystem(),sourceForm.getOperationSystem());
+        assertEquals(filledForm.getVmClass(),sourceForm.getVmClass());
+        assertEquals(filledForm.getInstanceType(),sourceForm.getInstanceType());
+        assertEquals(filledForm.getNumberOfGPUs(),sourceForm.getNumberOfGPUs());
+        assertEquals(filledForm.getGpuType(),sourceForm.getGpuType());
+        assertEquals(filledForm.getLocalSSD(),sourceForm.getLocalSSD());
+        assertEquals(filledForm.getDatacenterLocation(),sourceForm.getDatacenterLocation());
+        assertEquals(filledForm.getCommittedUsage(),sourceForm.getCommittedUsage());
+
+    }
+
+    @Test
+    public void appropriateEstimatedValueTest() {
+        System.out.println("estimated: ");
+        estimatedForm = steps.getEstimatedFrom();
+        estimatedForm.showForm();
+
+        System.out.println(estimatedForm.getVmClass().toLowerCase() + "-----"+ sourceForm.getVmClass().toLowerCase());
+        assertTrue(estimatedForm.getVmClass().toLowerCase().contains(sourceForm.getVmClass().toLowerCase()));
+        System.out.println(estimatedForm.getInstanceType().toLowerCase() + "-----"+ sourceForm.getInstanceType().toLowerCase());
+        //assertTrue(estimatedForm.getInstanceType().toLowerCase().contains(sourceForm.getInstanceType().toLowerCase()));
+        System.out.println(estimatedForm.getLocalSSD().toLowerCase() + "-----"+ sourceForm.getLocalSSD().toLowerCase());
+        assertTrue(estimatedForm.getLocalSSD().toLowerCase().contains(sourceForm.getLocalSSD().toLowerCase()));
+        System.out.println(estimatedForm.getDatacenterLocation().toLowerCase() + "-----"+ sourceForm.getDatacenterLocation().toLowerCase());
+        //assertTrue(estimatedForm.getDatacenterLocation().toLowerCase().contains(sourceForm.getDatacenterLocation().toLowerCase()));
+        System.out.println(estimatedForm.getCommittedUsage().toLowerCase() + "-----"+ sourceForm.getCommittedUsage().toLowerCase());
+        assertTrue(estimatedForm.getCommittedUsage().toLowerCase().contains(sourceForm.getCommittedUsage().toLowerCase()));
+
+    }
+
+    @Test
+    public void mailTest() {
+        steps.openLinkInNewTab(MAIL_URL);
+        //mail = steps.getMail();
+        //steps.openTab(TITLE_GOOGLE_CLOUD);
+        steps.openGTab();
+        steps.emailEstimate("pochta@mail.ru");
+        steps.openMTab();
+        //steps.openTab(TITLE_MAIL);
+
+    }
 
     @AfterClass
     public void closeBrowser()
@@ -76,16 +117,5 @@ public class Tests {
 }
 
 
-        /* filledForm = steps.getFilledForm();
-        System.out.println(filledForm.getNumberOfInstances());
-        assertEquals(filledForm.getNumberOfInstances(),sourceForm.getNumberOfInstances());
-        assertEquals(filledForm.getOperationSystem(),sourceForm.getOperationSystem());
-        assertEquals(filledForm.getVmClass(),sourceForm.getVmClass());
-        assertEquals(filledForm.getInstanceType(),sourceForm.getInstanceType());
-        assertEquals(filledForm.getNumberOfGPUs(),sourceForm.getNumberOfGPUs());
-        assertEquals(filledForm.getGpuType(),sourceForm.getGpuType());
-        assertEquals(filledForm.getLocalSSD(),sourceForm.getLocalSSD());
-        assertEquals(filledForm.getDatacenterLocation(),sourceForm.getDatacenterLocation());
-        assertEquals(filledForm.getCommittedUsage(),sourceForm.getCommittedUsage());*/
 
 

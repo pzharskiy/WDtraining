@@ -1,5 +1,6 @@
 package pages;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -30,5 +31,13 @@ public class MailPage {
     public String getMail()
     {
         return mail;
+    }
+
+    public String getPriceFromMail(String subject1)
+    {
+        String subject="Google Cloud Platform Price Estimate";
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id='ui-id-1']/span[contains(text(), '"+subject+"')]")));
+
+        return null;
     }
 }

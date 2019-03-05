@@ -99,7 +99,8 @@ public class CloudCalculatorPage extends CloudPage {
     }
 
     public void setInstanceType(String instanceType) {
-        instanceTypeLabel.click();
+        wait.until(ExpectedConditions.visibilityOf(instanceTypeLabel)).click();
+        //instanceTypeLabel.click();
         String XPath = "//div[@id='select_container_94']/md-select-menu/md-content/md-optgroup/md-option/div[@class='md-text']";
         wait.until(ExpectedConditions.visibilityOf(selectInstanceTypeContainer));
         selectOption(XPath, instanceType);
@@ -165,7 +166,7 @@ public class CloudCalculatorPage extends CloudPage {
 
     public void setLocation(String datacenterLocation) {
         String XPath = "//div[@id='select_container_98']/md-select-menu/md-content/md-option/div[@class='md-text ng-binding']";
-        dataCenterLabel.click();
+        wait.until(ExpectedConditions.visibilityOf(dataCenterLabel)).click();
         wait.until(ExpectedConditions.visibilityOf(selectDataCenterLocationContainer));
         selectOption(XPath, datacenterLocation);
     }
@@ -195,7 +196,7 @@ public class CloudCalculatorPage extends CloudPage {
     }
 
     public void fillEmailEstimateForm(String email) {
-        wait.until(ExpectedConditions.elementToBeClickable(By.id("input_383"))).sendKeys(email);
+        wait.until(ExpectedConditions.elementToBeClickable(By.id("input_380"))).sendKeys(email);
     }
 
     public void sendEmail() {
@@ -262,6 +263,7 @@ public class CloudCalculatorPage extends CloudPage {
     private void selectOption(String XPath, String optionToBeSelected) {
 
         List<WebElement> listOfSelectOptions = driver.findElements(By.xpath(XPath));
+        wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy((By.xpath(XPath))));
         for (WebElement webElement : listOfSelectOptions) {
             if (webElement.getText().equals(optionToBeSelected)) {
                 webElement.click();
