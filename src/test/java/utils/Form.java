@@ -1,7 +1,7 @@
 package utils;
 
 public class Form {
-    String numberOfInstances="";
+    String numberOfInstances;
     String operationSystem;
     String vmClass;
     String instanceType;
@@ -84,5 +84,18 @@ public class Form {
 
     public void setDatacenterLocation(String datacenterLocation) {
         this.datacenterLocation = datacenterLocation;
+    }
+
+    public void showForm()
+    {
+        System.out.println("numberOfInstances" + numberOfInstances +"\n"+
+                "operationSystem" + operationSystem +"\n"+
+                "vmClass" + vmClass +"\n"+
+                "instanceType" + instanceType +"\n"+
+                "numberOfGPUs" + numberOfGPUs +"\n"+
+                "gpuType" + gpuType +"\n"+
+                "localSSD" + localSSD +"\n"+
+                "committedUsage" + committedUsage +"\n"+
+                "datacenterLocation" + datacenterLocation);
     }
 }

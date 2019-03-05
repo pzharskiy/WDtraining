@@ -24,7 +24,8 @@ public class Tests {
     private final String COMMITED_USAGE = "1 Year";
     private String mail;
     private final String TITLE_GOOGLE_CLOUD = "Google Cloud Platform Pricing Calculator  |  Google Cloud Platform  |  Google Cloud";
-    private final String TITLE_MAIL = "";
+    private final String TITLE_MAIL = "10 Minute Mail  - Временная почта";
+    private final String MAIL_URL = "https://10minutemail.com";
 
 
     @BeforeClass
@@ -56,10 +57,12 @@ public class Tests {
         steps.calculate();
         steps.fillGoogleCloudForm(sourceForm);
         filledForm = steps.getFilledForm();
-        System.out.println(filledForm.getNumberOfInstances()+"FilledForm doesn't return any value, boiiii");
-        steps.openLinkInNewTab("https://10minutemail.com");
+        filledForm.showForm();
+        steps.openLinkInNewTab(MAIL_URL);
         mail = steps.getMail();
-
+        steps.openTab(TITLE_GOOGLE_CLOUD);
+        //steps.emailEstimate(mail);
+        steps.openTab(TITLE_MAIL);
     }
 
 

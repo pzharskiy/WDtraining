@@ -1,9 +1,7 @@
 package steps;
 
 import driver.DriverSingleton;
-import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import pages.*;
 import utils.Form;
@@ -74,29 +72,34 @@ public class CloudSteps {
     }
 
     public void openLinkInNewTab(String url) {
-        ((JavascriptExecutor)driver).executeScript("window.open()");
+
+        ((JavascriptExecutor) driver).executeScript("window.open()");
         List<String> tabs = new ArrayList<String>(driver.getWindowHandles());
-        driver.switchTo().window(tabs.get(1));
+        driver.switchTo().window(tabs.get(tabs.size() - 1));
         driver.get(url);
     }
 
-    public String getMail()
-    {
+    public String getMail() {
         MailPage page = new MailPage(driver);
         return page.getMail();
     }
 
-    public void emailEstimate(String email)
-    {
+    public void emailEstimate(String email) {
         CloudCalculatorPage page = new CloudCalculatorPage(driver);
         page.emailEstimate();
         page.fillEmailEstimateForm(email);
         page.sendEmail();
     }
 
-    public void openTab(String title)
-    {
+    public void openTab(String title) {
+        ArrayList<String> tabs = new ArrayList<String>(driver.getWindowHandles());
+        //driver.switchTo().window(tabs.get(1));
+        for (String tab : tabs
+        ) {
+            if (driver.switchTo().window(tab).getTitle().equals(title)) {
+               return;
+            }
+        }
     }
-
 
 }

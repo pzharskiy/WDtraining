@@ -10,7 +10,6 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 public class MailPage {
 
     @FindBy(id="mailAddress")
-    //*[@id="mailAddress"]
     WebElement copyAddress;
     private String mail;
     protected WebDriver driver;

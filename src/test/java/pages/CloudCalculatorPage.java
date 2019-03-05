@@ -82,7 +82,8 @@ public class CloudCalculatorPage extends CloudPage {
     }
 
     private String getInstance() {
-        return driver.findElement(By.xpath("//*[@id='input_46']")).getText();
+
+        return instancesLabel.getAttribute("value");
     }
 
     public void setOperationSystem(String operationSystemToBeSelected) {
@@ -102,7 +103,6 @@ public class CloudCalculatorPage extends CloudPage {
         String XPath = "//div[@id='select_container_94']/md-select-menu/md-content/md-optgroup/md-option/div[@class='md-text']";
         wait.until(ExpectedConditions.visibilityOf(selectInstanceTypeContainer));
         selectOption(XPath, instanceType);
-        //driver.findElement(By.xpath("//*[@id='select_option_70']")).click();
     }
 
     private String getInstanceType() {
@@ -198,8 +198,7 @@ public class CloudCalculatorPage extends CloudPage {
         wait.until(ExpectedConditions.elementToBeClickable(By.id("input_383"))).sendKeys(email);
     }
 
-    public void sendEmail()
-    {
+    public void sendEmail() {
         wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[contains(text(),'Send Email')]"))).click();
     }
 
@@ -262,10 +261,8 @@ public class CloudCalculatorPage extends CloudPage {
 
     private void selectOption(String XPath, String optionToBeSelected) {
 
-        int i = 0;
         List<WebElement> listOfSelectOptions = driver.findElements(By.xpath(XPath));
         for (WebElement webElement : listOfSelectOptions) {
-            System.out.println((i++) + " " + webElement.getText());
             if (webElement.getText().equals(optionToBeSelected)) {
                 webElement.click();
             }
