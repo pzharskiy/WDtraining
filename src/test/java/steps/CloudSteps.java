@@ -14,6 +14,7 @@ public class CloudSteps {
     private WebDriver driver;
     private Form estimatedFrom;
     private Form filledForm;
+    private String costPerMonth;
 
     public void openBrowser() {
         driver = DriverSingleton.getDriver();
@@ -46,6 +47,7 @@ public class CloudSteps {
         page.leaveFrame();
         filledForm = page.getFilledForm();
         estimatedFrom = page.getEstimatedValues();
+        costPerMonth = page.getCostPerMonth();
     }
 
     public void exploreAllProducts() {
@@ -99,7 +101,7 @@ public class CloudSteps {
         for (String tab : tabs
         ) {
             if (driver.switchTo().window(tab).getTitle().equals(title)) {
-               return;
+                return;
             }
         }
     }
@@ -108,14 +110,19 @@ public class CloudSteps {
         ArrayList<String> tabs = new ArrayList<String>(driver.getWindowHandles());
         driver.switchTo().window(tabs.get(0));
     }
+
     public void openMTab() {
         ArrayList<String> tabs = new ArrayList<String>(driver.getWindowHandles());
         driver.switchTo().window(tabs.get(1));
     }
 
-public String getPrice(String subject)
-{
-    MailPage page = new MailPage(driver);
-    return page.getPriceFromMail(subject);
-}
+    public String getPriceFromMail(String subject) {
+        MailPage page = new MailPage(driver);
+        return page.getPriceFromMail(subject);
+    }
+
+    public String getEstimatedCostPerMonth()
+    {
+        return costPerMonth;
+    }
 }

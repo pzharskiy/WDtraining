@@ -13,6 +13,7 @@ public class CloudCalculatorPage extends CloudPage {
 
     private final String URL = BASE_URL + "products/calculator/";
     private Form form = new Form();
+    private String estimatedCostPerMonth;
     @FindBy(id = "idIframe")
     private WebElement iFrame;
     //@FindBy(xpath = "//md-card-content[@id='mainForm']//div[@class='tab-holder compute']")
@@ -231,13 +232,14 @@ public class CloudCalculatorPage extends CloudPage {
         estimatedForm.setInstanceType(getEstimatedIntanceType());
         estimatedForm.setLocalSSD(getEstimatedLocalSSD());
         estimatedForm.setVmClass(getEstimatedVMClass());
+        estimatedCostPerMonth = driver.findElement(By.xpath("//*[@id=\"resultBlock\"]/md-card/md-card-content/div/div/div/h2/b")).getText();
         driver.switchTo().defaultContent();
         return estimatedForm;
     }
 
     public String getCostPerMonth() {
-        String costPerMonth = driver.findElement(By.xpath("//*[@id=\"compute\"]/md-list/md-list-item[7]")).getText();
-        return costPerMonth;
+        return estimatedCostPerMonth;
+
     }
 
     private String getEstimatedVMClass() {
