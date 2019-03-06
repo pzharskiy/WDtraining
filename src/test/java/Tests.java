@@ -1,16 +1,20 @@
-import org.testng.annotations.*;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Test;
 import steps.CloudSteps;
 import utils.Form;
 
-import static org.testng.Assert.*;
+import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertTrue;
 
 public class Tests {
 
-    CloudSteps steps = new CloudSteps();
-    Form filledForm;
-    Form sourceForm;
-    Form estimatedForm;
-    String estimatedCostPerMonth;
+    private CloudSteps steps = new CloudSteps();
+    private Form filledForm;
+    private Form sourceForm;
+    private Form estimatedForm;
+    private String estimatedCostPerMonth;
+    private String mail;
     private final String NUMBER_OF_INSTANCE = "4";
     private final String OPERATION_SYSTEM = "Free: Debian, CentOS, CoreOS, Ubuntu, or other User Provided OS";
     private final String VM_CLASS = "Regular";
@@ -20,23 +24,20 @@ public class Tests {
     private final String LOCAL_SSD = "2x375 GB";
     private final String DATACENTER_LOCATION = "Frankfurt (europe-west3)";
     private final String COMMITED_USAGE = "1 Year";
-    private String mail;
     private final String TITLE_GOOGLE_CLOUD = "Google Cloud Platform Pricing Calculator  |  Google Cloud Platform  |  Google Cloud";
     private final String TITLE_MAIL = "10 Minute Mail - Temporary E-Mail";
     private final String MAIL_URL = "https://10minutemail.com";
 
 
     @BeforeClass
-    public void initBrowser()
-    {
+    public void initBrowser() {
         steps.openBrowser();
 
     }
 
-    @BeforeTest
-    public void initSourceForm()
-    {
-        sourceForm=new Form();
+    @BeforeClass(dependsOnMethods = "initBrowser")
+    public void preparation() {
+        sourceForm = new Form();
         sourceForm.setNumberOfInstances(NUMBER_OF_INSTANCE);
         sourceForm.setOperationSystem(OPERATION_SYSTEM);
         sourceForm.setVmClass(VM_CLASS);
@@ -47,15 +48,6 @@ public class Tests {
         sourceForm.setDatacenterLocation(DATACENTER_LOCATION);
         sourceForm.setCommittedUsage(COMMITED_USAGE);
 
-    }
-
-
-
-    //Изменить: Лучше тесты собрать в группы, чтобы не проходить эти действия перед каждым тестом.
-    //Когда добавил аннотацию BeforeGroups все равно не запускалось - разобраться
-    @Test()
-    public void mainStepsOfScenario()
-    {
         steps.openGoogleCloud();
         steps.exploreAllProducts();
         steps.seePricing();
@@ -64,24 +56,23 @@ public class Tests {
         filledForm = steps.getFilledForm();
         estimatedForm = steps.getEstimatedFrom();
         estimatedCostPerMonth = steps.getEstimatedCostPerMonth();
-
     }
 
-    @Test(groups = "Appropriateness of values", dependsOnMethods ="mainStepsOfScenario")
+    @Test(groups = "Appropriateness of values")
     public void appropriateValueTest() {
-        assertEquals(filledForm.getNumberOfInstances(),sourceForm.getNumberOfInstances());
-        assertEquals(filledForm.getOperationSystem(),sourceForm.getOperationSystem());
-        assertEquals(filledForm.getVmClass(),sourceForm.getVmClass());
-        assertEquals(filledForm.getInstanceType(),sourceForm.getInstanceType());
-        assertEquals(filledForm.getNumberOfGPUs(),sourceForm.getNumberOfGPUs());
-        assertEquals(filledForm.getGpuType(),sourceForm.getGpuType());
-        assertEquals(filledForm.getLocalSSD(),sourceForm.getLocalSSD());
-        assertEquals(filledForm.getDatacenterLocation(),sourceForm.getDatacenterLocation());
-        assertEquals(filledForm.getCommittedUsage(),sourceForm.getCommittedUsage());
+        assertEquals(filledForm.getNumberOfInstances(), sourceForm.getNumberOfInstances());
+        assertEquals(filledForm.getOperationSystem(), sourceForm.getOperationSystem());
+        assertEquals(filledForm.getVmClass(), sourceForm.getVmClass());
+        assertEquals(filledForm.getInstanceType(), sourceForm.getInstanceType());
+        assertEquals(filledForm.getNumberOfGPUs(), sourceForm.getNumberOfGPUs());
+        assertEquals(filledForm.getGpuType(), sourceForm.getGpuType());
+        assertEquals(filledForm.getLocalSSD(), sourceForm.getLocalSSD());
+        assertEquals(filledForm.getDatacenterLocation(), sourceForm.getDatacenterLocation());
+        assertEquals(filledForm.getCommittedUsage(), sourceForm.getCommittedUsage());
 
     }
 
-    @Test(groups = "Appropriateness of values", dependsOnMethods = "appropriateValueTest")
+    @Test(groups = "Appropriateness of values")
     public void appropriateEstimatedValueTest() {
         assertTrue(estimatedForm.getVmClass().toLowerCase().contains(sourceForm.getVmClass().toLowerCase()));
         assertTrue(estimatedForm.getInstanceType().toLowerCase().contains(sourceForm.getInstanceType().toLowerCase().split(" ")[0]));
@@ -90,7 +81,7 @@ public class Tests {
         assertTrue(estimatedForm.getCommittedUsage().toLowerCase().contains(sourceForm.getCommittedUsage().toLowerCase()));
     }
 
-    @Test(groups = "Appropriateness of values", dependsOnMethods = "appropriateEstimatedValueTest" )
+    @Test(groups = "Appropriateness of values")
     public void mailTest() {
         steps.openLinkInNewTab(MAIL_URL);
         mail = steps.getMail();
@@ -100,12 +91,10 @@ public class Tests {
         //steps.openMTab();
         steps.openTab(TITLE_MAIL);
         assertTrue(estimatedCostPerMonth.contains(steps.getPriceFromMail("Google Cloud Platform Price Estimate")));
-        System.out.println(estimatedCostPerMonth+"====="+steps.getPriceFromMail("Google Cloud Platform Price Estimate"));
     }
 
     @AfterClass
-    public void closeBrowser()
-    {
+    public void closeBrowser() {
         steps.closeBrowser();
     }
 

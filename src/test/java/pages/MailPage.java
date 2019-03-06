@@ -16,8 +16,6 @@ public class MailPage {
     protected WebDriver driver;
     protected String BASE_URL = "https://10minutemail.com/";
     protected WebDriverWait wait;
-    String monthly = "//*[@id='mobilepadding']/td/h2";
-    String total = "//*[@id='mobilepadding']/td/table/tbody/tr[2]/td[2]/h3";
 
     public MailPage(WebDriver driver) {
         this.driver = driver;

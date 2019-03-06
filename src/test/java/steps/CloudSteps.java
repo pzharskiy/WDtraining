@@ -77,7 +77,7 @@ public class CloudSteps {
 
         ((JavascriptExecutor) driver).executeScript("window.open()");
         List<String> tabs = new ArrayList<String>(driver.getWindowHandles());
-        driver.switchTo().window(tabs.get(tabs.size()-1));
+        driver.switchTo().window(tabs.get(tabs.size() - 1));
         driver.get(url);
     }
 
@@ -86,7 +86,7 @@ public class CloudSteps {
         return page.getMail();
     }
 
-    public void emailEstimate(String email) {
+    public void emailEstimate(String email)  {
         CloudCalculatorPage page = new CloudCalculatorPage(driver);
         page.switchToFrame("idIframe");
         page.emailEstimate();
@@ -103,8 +103,7 @@ public class CloudSteps {
                 return;
             }*/
             String tabTitle = driver.switchTo().window(tab).getTitle();
-            if (tabTitle.equals(title))
-            {
+            if (tabTitle.equals(title)) {
                 driver.switchTo().window(tab);
                 return;
             }
@@ -126,8 +125,7 @@ public class CloudSteps {
         return page.getPriceFromMail(subject);
     }
 
-    public String getEstimatedCostPerMonth()
-    {
+    public String getEstimatedCostPerMonth() {
         return costPerMonth;
     }
 }
