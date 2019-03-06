@@ -2,8 +2,7 @@ import org.testng.annotations.*;
 import steps.CloudSteps;
 import utils.Form;
 
-import static org.testng.Assert.assertEquals;
-import static org.testng.Assert.assertTrue;
+import static org.testng.Assert.*;
 
 public class Tests {
 
@@ -22,8 +21,8 @@ public class Tests {
     private final String DATACENTER_LOCATION = "Frankfurt (europe-west3)";
     private final String COMMITED_USAGE = "1 Year";
     private String mail;
-    private final String TITLE_GOOGLE_CLOUD = "Google Cloud Platform Pricing Calculator  |  Google Cloud Platform  |  Google Cloud";
-    private final String TITLE_MAIL = "10 Minute Mail  - Временная почта";
+    private final String TITLE_GOOGLE_CLOUD = "Google Cloud Platform Pricing Calculator  |  Google Cloud Platform  |  Google Cloud";
+    private final String TITLE_MAIL = "10 Minute Mail - Temporary E-Mail";
     private final String MAIL_URL = "https://10minutemail.com";
 
 
@@ -50,9 +49,11 @@ public class Tests {
 
     }
 
+
+
     //Изменить: Лучше тесты собрать в группы, чтобы не проходить эти действия перед каждым тестом.
     //Когда добавил аннотацию BeforeGroups все равно не запускалось - разобраться
-    @Test
+    @Test()
     public void mainStepsOfScenario()
     {
         steps.openGoogleCloud();
@@ -93,13 +94,13 @@ public class Tests {
     public void mailTest() {
         steps.openLinkInNewTab(MAIL_URL);
         mail = steps.getMail();
-        //steps.openTab(TITLE_GOOGLE_CLOUD);
-        steps.openGTab();
+        steps.openTab(TITLE_GOOGLE_CLOUD);
+        //steps.openGTab();
         steps.emailEstimate(mail);
-        steps.openMTab();
+        //steps.openMTab();
+        steps.openTab(TITLE_MAIL);
         assertTrue(estimatedCostPerMonth.contains(steps.getPriceFromMail("Google Cloud Platform Price Estimate")));
-        //steps.openTab(TITLE_MAIL);
-
+        System.out.println(estimatedCostPerMonth+"====="+steps.getPriceFromMail("Google Cloud Platform Price Estimate"));
     }
 
     @AfterClass

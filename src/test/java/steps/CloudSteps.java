@@ -77,7 +77,7 @@ public class CloudSteps {
 
         ((JavascriptExecutor) driver).executeScript("window.open()");
         List<String> tabs = new ArrayList<String>(driver.getWindowHandles());
-        driver.switchTo().window(tabs.get(tabs.size() - 1));
+        driver.switchTo().window(tabs.get(tabs.size()-1));
         driver.get(url);
     }
 
@@ -97,10 +97,15 @@ public class CloudSteps {
 
     public void openTab(String title) {
         ArrayList<String> tabs = new ArrayList<String>(driver.getWindowHandles());
-        //driver.switchTo().window(tabs.get(1));
         for (String tab : tabs
         ) {
-            if (driver.switchTo().window(tab).getTitle().equals(title)) {
+            /*if (driver.switchTo().window(tab).getTitle().equals(title)) {
+                return;
+            }*/
+            String tabTitle = driver.switchTo().window(tab).getTitle();
+            if (tabTitle.equals(title))
+            {
+                driver.switchTo().window(tab);
                 return;
             }
         }
