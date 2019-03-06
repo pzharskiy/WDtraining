@@ -16,6 +16,8 @@ public class MailPage {
     protected WebDriver driver;
     protected String BASE_URL = "https://10minutemail.com/";
     protected WebDriverWait wait;
+    String monthly = "//*[@id='mobilepadding']/td/h2";
+    String total = "//*[@id='mobilepadding']/td/table/tbody/tr[2]/td[2]/h3";
 
     public MailPage(WebDriver driver) {
         this.driver = driver;
@@ -33,11 +35,11 @@ public class MailPage {
         return mail;
     }
 
-    public String getPriceFromMail(String subject1)
+    public String getPriceFromMail(String subject)
     {
-        String subject="Google Cloud Platform Price Estimate";
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id='ui-id-1']/span[contains(text(), '"+subject+"')]")));
-
-        return null;
+        new WebDriverWait(driver,30).until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id='ui-id-1']/span[contains(text(), '"+subject+"')]"))).click();
+        return  wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id='mobilepadding']/td/table/tbody/tr[2]/td[2]/h3"))).getText();
     }
+
+
 }

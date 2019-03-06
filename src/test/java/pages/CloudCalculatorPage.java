@@ -155,7 +155,7 @@ public class CloudCalculatorPage extends CloudPage {
 
     public void setSSD(String localSSD) {
         String XPath = "//div[@id='select_container_96']/md-select-menu/md-content/md-option/div[@class='md-text ng-binding']";
-        localSSDLabel.click();
+        wait.until(ExpectedConditions.visibilityOf(localSSDLabel)).click();
         wait.until(ExpectedConditions.visibilityOf(selectLocalSSDContainer));
         selectOption(XPath, localSSD);
     }

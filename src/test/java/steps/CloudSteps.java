@@ -113,5 +113,9 @@ public class CloudSteps {
         driver.switchTo().window(tabs.get(1));
     }
 
-
+public String getPrice(String subject)
+{
+    MailPage page = new MailPage(driver);
+    return page.getPriceFromMail(subject);
+}
 }

@@ -50,7 +50,7 @@ public class Tests {
     }
 
     //Изменить: Лучше тесты собрать в группы, чтобы не проходить эти действия перед каждым тестом.
-    @BeforeMethod
+    @BeforeGroups
     public void preparation()
     {
         steps.openGoogleCloud();
@@ -61,8 +61,13 @@ public class Tests {
 
     }
 
-    @Test
+    @Test(groups = "Appropriateness of values")
     public void appropriateValueTest() {
+        steps.openGoogleCloud();
+        steps.exploreAllProducts();
+        steps.seePricing();
+        steps.calculate();
+        steps.fillGoogleCloudForm(sourceForm);
         filledForm = steps.getFilledForm();
 
         assertEquals(filledForm.getNumberOfInstances(),sourceForm.getNumberOfInstances());
@@ -77,33 +82,26 @@ public class Tests {
 
     }
 
-    @Test
+    @Test(groups = "Appropriateness of values", dependsOnMethods = "appropriateValueTest")
     public void appropriateEstimatedValueTest() {
-        System.out.println("estimated: ");
         estimatedForm = steps.getEstimatedFrom();
-        estimatedForm.showForm();
 
-        System.out.println(estimatedForm.getVmClass().toLowerCase() + "-----"+ sourceForm.getVmClass().toLowerCase());
         assertTrue(estimatedForm.getVmClass().toLowerCase().contains(sourceForm.getVmClass().toLowerCase()));
-        System.out.println(estimatedForm.getInstanceType().toLowerCase() + "-----"+ sourceForm.getInstanceType().toLowerCase());
-        //assertTrue(estimatedForm.getInstanceType().toLowerCase().contains(sourceForm.getInstanceType().toLowerCase()));
-        System.out.println(estimatedForm.getLocalSSD().toLowerCase() + "-----"+ sourceForm.getLocalSSD().toLowerCase());
+        assertTrue(estimatedForm.getInstanceType().toLowerCase().contains(sourceForm.getInstanceType().toLowerCase().split(" ")[0]));
         assertTrue(estimatedForm.getLocalSSD().toLowerCase().contains(sourceForm.getLocalSSD().toLowerCase()));
-        System.out.println(estimatedForm.getDatacenterLocation().toLowerCase() + "-----"+ sourceForm.getDatacenterLocation().toLowerCase());
-        //assertTrue(estimatedForm.getDatacenterLocation().toLowerCase().contains(sourceForm.getDatacenterLocation().toLowerCase()));
-        System.out.println(estimatedForm.getCommittedUsage().toLowerCase() + "-----"+ sourceForm.getCommittedUsage().toLowerCase());
+        assertTrue(estimatedForm.getDatacenterLocation().toLowerCase().contains(sourceForm.getDatacenterLocation().toLowerCase().split(" ")[0]));
         assertTrue(estimatedForm.getCommittedUsage().toLowerCase().contains(sourceForm.getCommittedUsage().toLowerCase()));
-
     }
 
-    @Test
+    @Test(groups = "Appropriateness of values", dependsOnMethods = "appropriateEstimatedValueTest" )
     public void mailTest() {
         steps.openLinkInNewTab(MAIL_URL);
-        //mail = steps.getMail();
+        mail = steps.getMail();
         //steps.openTab(TITLE_GOOGLE_CLOUD);
         steps.openGTab();
-        steps.emailEstimate("pochta@mail.ru");
+        steps.emailEstimate(mail);
         steps.openMTab();
+        System.out.println(steps.getPrice("Google Cloud Platform Price Estimate"));
         //steps.openTab(TITLE_MAIL);
 
     }
@@ -116,6 +114,17 @@ public class Tests {
 
 }
 
+/*
 
-
+        System.out.println(estimatedForm.getVmClass().toLowerCase() + "-----"+ sourceForm.getVmClass().toLowerCase());
+        assertTrue(estimatedForm.getVmClass().toLowerCase().contains(sourceForm.getVmClass().toLowerCase()));
+        System.out.println(estimatedForm.getInstanceType().toLowerCase() + "-----"+ sourceForm.getInstanceType().toLowerCase());
+        assertTrue(estimatedForm.getInstanceType().toLowerCase().contains(sourceForm.getInstanceType().toLowerCase().split(" ")[0]));
+        System.out.println(estimatedForm.getLocalSSD().toLowerCase() + "-----"+ sourceForm.getLocalSSD().toLowerCase());
+        assertTrue(estimatedForm.getLocalSSD().toLowerCase().contains(sourceForm.getLocalSSD().toLowerCase()));
+        System.out.println(estimatedForm.getDatacenterLocation().toLowerCase() + "-----"+ sourceForm.getDatacenterLocation().toLowerCase());
+        assertTrue(estimatedForm.getDatacenterLocation().toLowerCase().contains(sourceForm.getDatacenterLocation().toLowerCase().split(" ")[0]));
+        System.out.println(estimatedForm.getCommittedUsage().toLowerCase() + "-----"+ sourceForm.getCommittedUsage().toLowerCase());
+        assertTrue(estimatedForm.getCommittedUsage().toLowerCase().contains(sourceForm.getCommittedUsage().toLowerCase()));
+*/
 
