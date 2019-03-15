@@ -1,16 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="Google Cloud tests">
 
-    <test name="Appropriateness of entering and estimated values">
-        <groups>
-            <run>
-                <include name="Appropriateness of values"/>
-            </run>
-        </groups>
+<suite name="remoteTests" parallel="tests" thread-count="3">
+
+    <test name="firefox test 1">
+        <parameter name="browser" value="firefox"/>
         <classes>
-            <class name="Tests" />
+            <class name="RemoteTests">
+                <!--<methods>
+                    <include name="getUrlTest"/>
+                </methods>-->
+            </class>
+        </classes>
+    </test>
+
+    <test name="firefox test 2">
+        <parameter name="browser" value="firefox"/>
+        <classes>
+            <class name="RemoteTests">
+                <!--<methods>
+                    <include name="getUrlTest"/>
+                </methods>-->
+            </class>
+        </classes>
+    </test>
+
+    <test name="chrome test">
+        <parameter name="browser" value="chrome"/>
+        <classes>
+            <class name="RemoteTests">
+                <!--<methods>
+                    <include name="getUrlTest"/>
+                </methods>-->
+            </class>
         </classes>
     </test>
 
 </suite>
+
+
