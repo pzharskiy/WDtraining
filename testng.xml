@@ -5,6 +5,7 @@
 
     <test name="firefox test 1">
         <parameter name="browser" value="firefox"/>
+        <parameter name="url" value="http://192.168.56.1:4444/wd/hub"/>
         <classes>
             <class name="RemoteTests">
                 <!--<methods>
@@ -16,6 +17,7 @@
 
     <test name="firefox test 2">
         <parameter name="browser" value="firefox"/>
+        <parameter name="url" value="http://192.168.56.1:4444/wd/hub"/>
         <classes>
             <class name="RemoteTests">
                 <!--<methods>
@@ -27,6 +29,7 @@
 
     <test name="chrome test">
         <parameter name="browser" value="chrome"/>
+        <parameter name="url" value="http://192.168.56.1:4444/wd/hub"/>
         <classes>
             <class name="RemoteTests">
                 <!--<methods>

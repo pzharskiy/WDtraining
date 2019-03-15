@@ -27,19 +27,15 @@ public class DriverSingleton {
         return driver;
     }
 
-    public static WebDriver getRemoteDriver(String browserName) throws MalformedURLException {
-
-        String CHROME_NODE_URL = "http://192.168.56.1:4444/wd/hub";
-        String FF_NODE_URL = "http://192.168.56.1:4444/wd/hub";
-        String EDGE_NODE_URL = "empty";
+    public static WebDriver getRemoteDriver(String browserName, String url) throws MalformedURLException {
 
         if (null == driver) {
             if (browserName.equals("firefox")) {
-                driver = new RemoteWebDriver(new URL(FF_NODE_URL), new FirefoxOptions());
+                driver = new RemoteWebDriver(new URL(url), new FirefoxOptions());
             } else if (browserName.equals("chrome")) {
-                driver = new RemoteWebDriver(new URL(CHROME_NODE_URL), new ChromeOptions());
+                driver = new RemoteWebDriver(new URL(url), new ChromeOptions());
             } else if (browserName.equals("Edge")) {
-                driver = new RemoteWebDriver(new URL(EDGE_NODE_URL), new EdgeOptions());
+                driver = new RemoteWebDriver(new URL(url), new EdgeOptions());
             }
             driver.manage().window().maximize();
         }

@@ -1,30 +1,23 @@
 import driver.DriverSingleton;
-import org.openqa.selenium.Platform;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.edge.EdgeOptions;
-import org.openqa.selenium.firefox.FirefoxOptions;
-import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.Assert;
-import org.testng.annotations.*;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Parameters;
+import org.testng.annotations.Test;
 
 import java.net.MalformedURLException;
-import java.net.URL;
 
 public class RemoteTests {
 
     WebDriver driver = null;
-    WebDriver driver2;
-    //RemoteWebDriver driver;
     String BASE_URL = "http://google.com/";
-    String CHROME_NODE_URL = "http://192.168.56.1:4444/wd/hub";
-    String FF_NODE_URL = "http://192.168.56.1:4444/wd/hub";
-    String EDGE_NODE_URL = "empty";
-    @BeforeMethod
-    @Parameters("browser")
-    public void init(String browserName) throws MalformedURLException {
 
-        driver = DriverSingleton.getRemoteDriver(browserName);
+    @BeforeMethod
+    @Parameters({"browser", "url"})
+    public void init(String browserName, String url) throws MalformedURLException {
+
+        driver = DriverSingleton.getRemoteDriver(browserName, url);
 
         /*if (browserName.equals("firefox")) {
             driver = new RemoteWebDriver(new URL(FF_NODE_URL), new FirefoxOptions());
