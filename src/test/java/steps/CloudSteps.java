@@ -6,6 +6,7 @@ import org.openqa.selenium.WebDriver;
 import pages.*;
 import utils.Form;
 
+import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,6 +19,10 @@ public class CloudSteps {
 
     public void openBrowser() {
         driver = DriverSingleton.getDriver();
+    }
+
+    public void openRemoteBrowser(String browserName, String url) throws MalformedURLException {
+        driver = DriverSingleton.getRemoteDriver(browserName, url);
     }
 
     public void closeBrowser() {

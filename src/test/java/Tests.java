@@ -58,7 +58,7 @@ public class Tests {
         estimatedCostPerMonth = steps.getEstimatedCostPerMonth();
     }
 
-    @Test(groups = "Appropriateness of values")
+    @Test
     public void appropriateValueTest() {
         assertEquals(filledForm.getNumberOfInstances(), sourceForm.getNumberOfInstances());
         assertEquals(filledForm.getOperationSystem(), sourceForm.getOperationSystem());
@@ -72,7 +72,7 @@ public class Tests {
 
     }
 
-    @Test(groups = "Appropriateness of values")
+    @Test
     public void appropriateEstimatedValueTest() {
         assertTrue(estimatedForm.getVmClass().toLowerCase().contains(sourceForm.getVmClass().toLowerCase()));
         assertTrue(estimatedForm.getInstanceType().toLowerCase().contains(sourceForm.getInstanceType().toLowerCase().split(" ")[0]));
@@ -81,7 +81,7 @@ public class Tests {
         assertTrue(estimatedForm.getCommittedUsage().toLowerCase().contains(sourceForm.getCommittedUsage().toLowerCase()));
     }
 
-    @Test(groups = "Appropriateness of values")
+    @Test
     public void mailTest() {
         steps.openLinkInNewTab(MAIL_URL);
         mail = steps.getMail();
